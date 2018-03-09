@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="13dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.micua.pocketbuddy.SettingsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Background"
+        tools:ignore="HardcodedText"
+        android:id="@+id/tv1"
+        android:padding="3dp"
+        android:textSize="15sp"/>
+
+
+    <TextView
+        android:id="@+id/separator1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv1"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/rl_gradient_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/separator1">
+
+        <TextView
+            android:id="@+id/tv_linear_gradient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/rb_linear_gradient"
+            android:layout_alignBottom="@+id/rb_linear_gradient"
+            android:layout_alignParentStart="true"
+            android:text="Linear Gradient"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:id="@+id/rb_linear_gradient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_solid_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/rl_gradient_holder">
+
+        <TextView
+            android:id="@+id/tv_solid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/rb_solid"
+            android:layout_alignBottom="@+id/rb_solid"
+            android:layout_alignParentStart="true"
+            android:text="Solid Color"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:id="@+id/rb_solid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
