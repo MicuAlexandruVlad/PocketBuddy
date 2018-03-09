@@ -79,4 +79,77 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_solid_color_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/rl_solid_holder">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_solid_color_launch"
+            android:text="Pick a color"
+            android:textAllCaps="true"
+            android:textStyle="normal"
+            tools:ignore="HardcodedText"
+            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/rl_solid_holder"
+        android:id="@+id/ll_gradient_color_picker">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_start_color_launch"
+                android:text="Pick starting color"
+                android:textAllCaps="true"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText"
+                style="@style/Base.Widget.AppCompat.Button.Colored"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_end_color_launch"
+                android:text="Pick ending color"
+                android:textAllCaps="true"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText"
+                style="@style/Base.Widget.AppCompat.Button.Colored"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

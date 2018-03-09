@@ -12,21 +12,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 public class MainActivity extends AppCompatActivity {
     private ImageView listen, settings;
     private LinearGradient linearGradient;
-    private GradientDrawable gradientDrawable;
-    private String newStartColor, newEndColor;
+    private RelativeLayout mainHolder;
+    private GradientDrawable linearGradientDrawable;
+    private int newStartColor = 0, newEndColor = 0, solidColor = 0;
+    private boolean isSolid, isLinear;
+    public static final int SETTINGS_REQ_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EventBus.getDefault().register(this);
+
         assert getSupportActionBar() != null;
         getSupportActionBar().hide();
 
-        final RelativeLayout mainHolder = findViewById(R.id.main_holder);
+        mainHolder = findViewById(R.id.main_holder);
         mainHolder.setBackgroundResource(R.drawable.main_screen_bg);
 
         listen = findViewById(R.id.iv_mic);
@@ -36,19 +44,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, SETTINGS_REQ_CODE);
             }
         });
 
-        gradientDrawable = new GradientDrawable();
-        gradientDrawable.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
-        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+
         // TODO: set colors
         //gradientDrawable.setColors(new int[] {Color.parseColor("#F2CFC2"), Color.parseColor("#541342")});
-        gradientDrawable.setCornerRadius(0f);
 
 
 
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SETTINGS_REQ_CODE) {
+            if (data.getStringExtra("solid").equals("solid"))
+                mainHolder.setBackgroundColor(solidColor);
+            else
+                if (data.getStringExtra("linear").equals("linear"))
+                    setLinearBackground();
+        }
+    }
+
+    private void setLinearBackground() {
+        linearGradientDrawable = new GradientDrawable();
+        linearGradientDrawable.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+        linearGradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        linearGradientDrawable.setCornerRadius(0f);
+        linearGradientDrawable.setColors(new int[] {newStartColor, newEndColor});
+        mainHolder.setBackground(linearGradientDrawable);
+    }
+
+    @Subscribe
+    public void onSolidColorPickedEvent(ColorEvent event) {
+        solidColor = event.getSolidColor();
+    }
+
+    @Subscribe
+    public void onStartColorPickedEvent(ColorEvent event) {
+        newStartColor = event.getStartColor();
+    }
+
+    @Subscribe
+    public void onEndColorPickedEvent(ColorEvent event) {
+        newEndColor = event.getEndColor();
     }
 }

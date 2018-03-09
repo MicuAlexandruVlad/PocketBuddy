@@ -7,4 +7,5 @@
     <color name="darkBluePurple">#130421</color>
     <color name="darkPurple">#101C47</color>
     <color name="textLight">#F2CFC2</color>
+    <color name="dialogBG">#212021</color>
 </resources>
