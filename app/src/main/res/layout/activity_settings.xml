@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_start_color_launch"
-                android:text="Pick starting color"
+                android:text="Starting color"
                 android:textAllCaps="true"
                 android:textStyle="normal"
                 tools:ignore="HardcodedText"
@@ -142,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_end_color_launch"
-                android:text="Pick ending color"
+                android:text="Ending color"
                 android:textAllCaps="true"
                 android:textStyle="normal"
                 tools:ignore="HardcodedText"
@@ -151,5 +151,52 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Translation"
+        tools:ignore="HardcodedText"
+        android:id="@+id/tv2"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/ll_gradient_color_picker"
+        android:padding="3dp"
+        android:textSize="15sp"/>
+
+
+    <TextView
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv2"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/rl_location_translate_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/separator3">
+
+        <TextView
+            android:id="@+id/tv_toggle_location_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_alignBottom="@+id/switch_location_translate"
+            android:layout_alignParentStart="true"
+            android:text="Use location to identify language"
+            tools:ignore="HardcodedText" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch_location_translate"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

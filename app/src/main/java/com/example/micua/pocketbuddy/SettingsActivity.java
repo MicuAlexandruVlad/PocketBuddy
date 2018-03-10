@@ -28,6 +28,8 @@ public class SettingsActivity extends AppCompatActivity {
     private int newStartColor, newEndColor, solidColor;
     private Intent returnIntent;
 
+    //TODO: make location switch functional, save settings
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
