@@ -1,6 +1,8 @@
 package com.example.micua.pocketbuddy;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
     private Button solidColorPick, startColor, endColor;
     private int newStartColor, newEndColor, solidColor;
     private Intent returnIntent;
+    private CountryCodes countryCodes;
+    private Switch enableLocation;
 
     //TODO: make location switch functional, save settings
 
@@ -39,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         returnIntent = new Intent();
+        countryCodes = new CountryCodes();
 
         gradientHolder = findViewById(R.id.rl_gradient_holder);
         solidHolder = findViewById(R.id.rl_solid_holder);
@@ -51,6 +57,8 @@ public class SettingsActivity extends AppCompatActivity {
         startColor = findViewById(R.id.btn_start_color_launch);
         endColor = findViewById(R.id.btn_end_color_launch);
         solidPickHolder = findViewById(R.id.rl_solid_color_picker);
+        enableLocation = findViewById(R.id.switch_location_translate);
+
 
         gradientPickHolder.setVisibility(View.GONE);
         solidPickHolder.setVisibility(View.GONE);
@@ -85,6 +93,15 @@ public class SettingsActivity extends AppCompatActivity {
                 colorPickerDialog.setEnd(true);
             }
         });
+
+        enableLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                    displayUnsupportedCountries(countryCodes.getUnsupportedCountriesForLocationTranslate());
+            }
+        });
+
         setChecks();
     }
 
@@ -139,5 +156,25 @@ public class SettingsActivity extends AppCompatActivity {
         }
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
+    }
+
+    private void displayUnsupportedCountries(String[] countries) {
+        StringBuilder c = new StringBuilder();
+        for (int i = 0; i < countries.length; i++) {
+           c.append(countries[i]).append(" ");
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+        builder.setIcon(R.drawable.warning);
+        builder.setTitle("Unsupported Countries");
+        builder.setMessage("The following countries are not supported by our service: " + c.toString());
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create();
+        builder.show();
     }
 }

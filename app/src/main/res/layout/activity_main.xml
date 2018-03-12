@@ -7,6 +7,12 @@
     android:id="@+id/main_holder"
     tools:context="com.example.micua.pocketbuddy.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trigger"
+        android:id="@+id/trigger_lang"/>
+
     <ImageView
         android:layout_width="28dp"
         android:layout_height="28dp"
@@ -16,15 +22,34 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"/>
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_language_from"
+        android:layout_above="@id/et_text_to_translate"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        />
+
     <EditText
-        android:layout_width="match_parent"
+        android:id="@+id/et_text_to_translate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/separator2"
-        android:id="@+id/et_text_to_translate"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp" />
+        android:inputType="textCapSentences"
+        android:layout_toStartOf="@+id/iv_tts_lang_from" />
+
+    <ImageView
+        android:id="@+id/iv_tts_lang_from"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/et_translated_text"
+        android:layout_below="@+id/ll1"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/text_to_speech" />
 
     <TextView
         android:layout_width="match_parent"
@@ -32,12 +57,47 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:background="@color/colorPrimaryDark"
-        android:id="@+id/separator2" />
+        android:id="@+id/separator2"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_language_to"
+        android:layout_below="@id/separator2"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/et_text_to_translate"
+        android:layout_alignEnd="@+id/iv_tts_lang_from"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auto detect"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:id="@+id/cb_auto_detect"
+            />
+
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/separator2"
+        android:layout_below="@+id/spinner_language_to"
         android:id="@+id/et_translated_text"
         android:layout_marginStart="16dp"
         android:clickable="false"
