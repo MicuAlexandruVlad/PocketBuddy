@@ -10,8 +10,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:text="trigger"
-        android:id="@+id/trigger_lang"/>
+        android:id="@+id/trigger_lang"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_itinerary_generator"
+        android:text="generate itinerary"
+        android:layout_below="@id/trigger_lang"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:layout_width="28dp"

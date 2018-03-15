@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private CountryCodes countryCodes;
     private CheckBox autoDetect;
     private ArrayAdapter<String> adapter;
-    private Button trigger;
+    private Button trigger, generateItinerary;
     private TextToSpeech tts;
 
     @Override
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         autoDetect = findViewById(R.id.cb_auto_detect);
         trigger = findViewById(R.id.trigger_lang);
         ttsFrom = findViewById(R.id.iv_tts_lang_from);
+        generateItinerary = findViewById(R.id.btn_itinerary_generator);
 
         adapter = new ArrayAdapter<>(this, R.layout.spinner_lang_item, R.id.tv_lang_spinner,
                 languages);
@@ -90,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
         //mainHolder.setBackgroundResource(R.drawable.main_screen_bg);
         translateCountry(getApplicationContext().getResources().getConfiguration().locale.getDisplayCountry());
+
+        generateItinerary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ItineraryPlanner.class));
+            }
+        });
 
         trigger.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
             if (data.getStringExtra("solid").equals("solid"))
                 mainHolder.setBackgroundColor(solidColor);
             else
-                if (data.getStringExtra("linear").equals("linear"))
-                    setLinearBackground();
+            if (data.getStringExtra("linear").equals("linear"))
+                setLinearBackground();
         }
     }
 
@@ -256,8 +264,8 @@ public class MainActivity extends AppCompatActivity {
     private void establishConnection(String textToTranslate, String languageToTranslate, String languageFromTranslate) {
         httpClient = new OkHttpClient();
         request = new Request.Builder()
-                      .url(buildTranslateUrl(YANDEX_API, textToTranslate, languageToTranslate, languageFromTranslate))
-                      .build();
+                .url(buildTranslateUrl(YANDEX_API, textToTranslate, languageToTranslate, languageFromTranslate))
+                .build();
         fetchResponse();
     }
 
