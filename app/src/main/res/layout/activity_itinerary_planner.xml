@@ -46,6 +46,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="32dp"
         android:layout_marginStart="16dp"
+        android:id="@+id/ll4"
         android:layout_below="@id/ll3">
 
         <TextView
@@ -60,6 +61,32 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:id="@+id/et_ending_date"
+            android:layout_marginStart="16dp"
+            android:focusable="false"
+            android:clickable="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/ll4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activities every day"
+            tools:ignore="HardcodedText"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_number_activities"
             android:layout_marginStart="16dp"
             android:focusable="false"
             android:clickable="false"/>

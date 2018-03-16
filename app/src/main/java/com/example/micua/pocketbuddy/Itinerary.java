@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -26,11 +28,13 @@ public class Itinerary extends AppCompatActivity {
 
     private String destinationName, destinationID, startDate, endDate;
     private Intent intent;
+    private double latitude, longitude;
     private API_KEYS api_keys;
     private ImageView banner;
     private List<ItineraryPlace> places;
     private ListView placesList;
     private ItineraryPlaceAdapter adapter;
+    private int numActivities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,10 @@ public class Itinerary extends AppCompatActivity {
         placesList = findViewById(R.id.lv_places);
 
         places = new ArrayList<>();
-        adapter = new ItineraryPlaceAdapter(this, R.layout.places_list_item, places);
+        adapter = new ItineraryPlaceAdapter(Itinerary.this, R.layout.places_list_item, places);
+        placesList.setAdapter(adapter);
+        placesList.setDivider(null);
+        placesList.setDividerHeight(0);
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -64,19 +71,22 @@ public class Itinerary extends AppCompatActivity {
                     try {
                         JSONObject object = new JSONObject(response.body().string());
                         JSONArray results = object.getJSONArray("results");
+                        Log.d("Itinerary", buildPlacesUrl());
+                        Log.d("Itinerary", results.length() + " places");
                         for (int i = 0; i < results.length(); i++) {
                             JSONObject innerObj = results.getJSONObject(i);
-                            String reference = buildImageUrl(innerObj.getJSONArray("photos")
+                            final String reference = buildImageUrl(innerObj.getJSONArray("photos")
                                     .getJSONObject(0).getString("photo_reference"));
-                            String rating = innerObj.getString("rating") + "";
-                            String description = innerObj.getString("vicinity");
-                            String title = innerObj.getString("name");
-                            places.add(new ItineraryPlace(description, title, rating, "Expensive", reference));
-                            System.out.println(rating);
-                            System.out.println(title);
+                            final String rating = innerObj.getString("rating") + "";
+                            final String description = innerObj.getString("vicinity");
+                            final String title = innerObj.getString("name");
+                            final String placeID = innerObj.getString("place_id");
+                            Log.d("Itinerary", "placeID: " + placeID);
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    places.add(new ItineraryPlace(description, title, rating, "Expensive", reference, placeID));
                                     adapter.notifyDataSetChanged();
                                 }
                             });
@@ -89,7 +99,18 @@ public class Itinerary extends AppCompatActivity {
             }
         });
 
-        placesList.setAdapter(adapter);
+        placesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(Itinerary.this, ItineraryPlaceDetails.class);
+                assert adapter.getItem(i) != null;
+                intent.putExtra("place_name", adapter.getItem(i).getTitle());
+                intent.putExtra("place_rating", adapter.getItem(i).getRating());
+                intent.putExtra("place_id", adapter.getItem(i).getPlaceID());
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void getDataFromParent(Intent intent) {
@@ -97,14 +118,27 @@ public class Itinerary extends AppCompatActivity {
         destinationID = intent.getStringExtra("destination_id");
         startDate = intent.getStringExtra("start_date");
         endDate = intent.getStringExtra("end_date");
+        latitude = intent.getDoubleExtra("latitude", 0);
+        longitude = intent.getDoubleExtra("longitude", 0);
+        numActivities = intent.getIntExtra("num_activities", 0);
+        Log.d("Itinerary", latitude + "");
+        Log.d("Itinerary", longitude + "");
     }
 
     private String buildPlacesUrl() {
-        return "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBF8xl2OQx4nsxXiIKostXetiQETgYVRsw&location=48.864716, 2.349014&radius=5000&rankby=prominence&type=night_club";
+        String link;
+        String location = latitude + "," + longitude;
+        String type = "art_gallery";
+        link = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + api_keys.PLACES_WEB_API +
+                "&location=" + location + "&radius=5000&rankby=prominence&type=" + type;
+        System.out.println(link);
+        return link;
     }
 
     private String buildImageUrl(String refference) {
         return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + refference +
                 "&key=" + api_keys.PLACES_WEB_API;
     }
+
+
 }

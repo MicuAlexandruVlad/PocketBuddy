@@ -5,13 +5,23 @@ public class ItineraryPlace {
     private String title;
     private String rating;
     private String pricing;
+    private String placeID;
 
-    public ItineraryPlace(String description, String title, String rating, String pricing, String imgUrl) {
+    public ItineraryPlace(String description, String title, String rating, String pricing, String imgUrl, String placeID) {
         this.description = description;
         this.title = title;
         this.rating = rating;
         this.pricing = pricing;
         this.imgUrl = imgUrl;
+        this.placeID = placeID;
+    }
+
+    public String getPlaceID() {
+        return placeID;
+    }
+
+    public void setPlaceID(String placeID) {
+        this.placeID = placeID;
     }
 
     public String getImgUrl() {

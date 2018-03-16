@@ -9,20 +9,26 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
+import com.codetroopers.betterpickers.numberpicker.NumberPickerDialogFragment;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
 
 public class ItineraryPlanner extends AppCompatActivity {
 
     private Button startPlanning;
-    private EditText startDateET, endDateET;
+    private EditText startDateET, endDateET, numActivitiesET;
     private PlaceAutocompleteFragment destinationF;
     private String startDate, endDate;
     private String destinationName, destinationID;
+    private double latitude, longitude;
+    private int numActivities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class ItineraryPlanner extends AppCompatActivity {
         startDateET = findViewById(R.id.et_starting_date);
         endDateET = findViewById(R.id.et_ending_date);
         startPlanning = findViewById(R.id.btn_start_planing);
+        numActivitiesET = findViewById(R.id.et_number_activities);
         destinationF = (PlaceAutocompleteFragment) getFragmentManager()
                 .findFragmentById(R.id.f_destination_autocomplete);
 
@@ -44,6 +51,8 @@ public class ItineraryPlanner extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 destinationName = place.getName().toString();
                 destinationID = place.getId();
+                latitude = place.getLatLng().latitude;
+                longitude = place.getLatLng().longitude;
                 Log.d("place", "Place: " + place.getName());
                 Log.d("place", "Place: " + place.getAttributions());
                 Log.d("place", "Place: " + place.getPlaceTypes());
@@ -96,6 +105,22 @@ public class ItineraryPlanner extends AppCompatActivity {
             }
         });
 
+        numActivitiesET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NumberPickerBuilder numberPickerBuilder = new NumberPickerBuilder();
+                numberPickerBuilder.setFragmentManager(getSupportFragmentManager());
+                numberPickerBuilder.setStyleResId(R.style.BetterPickersDialogFragment);
+                numberPickerBuilder.show();
+                numberPickerBuilder.addNumberPickerDialogHandler(new NumberPickerDialogFragment.NumberPickerDialogHandlerV2() {
+                    @Override
+                    public void onDialogNumberSet(int reference, BigInteger number, double decimal, boolean isNegative, BigDecimal fullNumber) {
+                        numActivities = number.intValue();
+                    }
+                });
+            }
+        });
+
         startPlanning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +129,9 @@ public class ItineraryPlanner extends AppCompatActivity {
                 intent.putExtra("start_date", startDate);
                 intent.putExtra("end_date", endDate);
                 intent.putExtra("destination_id", destinationID);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("num_activities", numActivities);
                 startActivity(intent);
             }
         });

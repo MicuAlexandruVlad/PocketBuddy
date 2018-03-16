@@ -23,10 +23,13 @@
         </activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".Itinerary" />
-        <activity android:name=".ItineraryPlanner"/>
+        <activity android:name=".ItineraryPlanner" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD-CNv0eWPm_ieieM4nOUbj6f4prrseH5c" />
+
+        <activity android:name=".ItineraryPlaceDetails"></activity>
     </application>
 
 </manifest>
