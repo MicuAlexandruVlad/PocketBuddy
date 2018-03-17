@@ -18,11 +18,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import com.loopj.android.http.*;
 
 public class Itinerary extends AppCompatActivity {
 
@@ -49,55 +52,69 @@ public class Itinerary extends AppCompatActivity {
         api_keys = new API_KEYS();
         placesList = findViewById(R.id.lv_places);
 
+
         places = new ArrayList<>();
         adapter = new ItineraryPlaceAdapter(Itinerary.this, R.layout.places_list_item, places);
+
+
         placesList.setAdapter(adapter);
         placesList.setDivider(null);
         placesList.setDividerHeight(0);
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(buildPlacesUrl())
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(buildPlacesUrl(), new JsonHttpResponseHandler() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("Itinerary", "Failure getting data from server");
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject object = new JSONObject(response.body().string());
-                        JSONArray results = object.getJSONArray("results");
-                        Log.d("Itinerary", buildPlacesUrl());
-                        Log.d("Itinerary", results.length() + " places");
-                        for (int i = 0; i < results.length(); i++) {
-                            JSONObject innerObj = results.getJSONObject(i);
-                            final String reference = buildImageUrl(innerObj.getJSONArray("photos")
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("Itinerary", response.toString());
+                try {
+                    JSONArray results = response.getJSONArray("results");
+                    Log.d("Itinerary", "places " + results.length());
+                    for (int i = 0; i < results.length(); i++) {
+                        String reference;
+                        JSONObject innerObj = results.getJSONObject(i);
+                        if (innerObj.isNull("photos"))
+                            continue;
+                        else
+                            reference = buildImageUrl(innerObj.getJSONArray("photos")
                                     .getJSONObject(0).getString("photo_reference"));
-                            final String rating = innerObj.getString("rating") + "";
-                            final String description = innerObj.getString("vicinity");
-                            final String title = innerObj.getString("name");
-                            final String placeID = innerObj.getString("place_id");
-                            Log.d("Itinerary", "placeID: " + placeID);
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    places.add(new ItineraryPlace(description, title, rating, "Expensive", reference, placeID));
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String rating;
+                        if (innerObj.isNull("rating"))
+                            continue;
+                        else
+                            rating = innerObj.getString("rating") + "";
+                        String description;
+                        if (innerObj.isNull("vicinity"))
+                            continue;
+                        else
+                            description = innerObj.getString("vicinity");
+                        String title;
+                        if (innerObj.isNull("name"))
+                            continue;
+                        else
+                            title = innerObj.getString("name");
+                        String placeID;
+                        if (innerObj.isNull("place_id"))
+                            continue;
+                        else
+                            placeID = innerObj.getString("place_id");
+                        String placeLat = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lat");
+                        String placeLong = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lng");
+                        Log.d("Itinerary", "placeID: " + placeID);
+                        places.add(new ItineraryPlace(description, title, rating, "Expensive", reference, placeID, placeLat, placeLong));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });
+
+
 
         placesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,6 +124,8 @@ public class Itinerary extends AppCompatActivity {
                 intent.putExtra("place_name", adapter.getItem(i).getTitle());
                 intent.putExtra("place_rating", adapter.getItem(i).getRating());
                 intent.putExtra("place_id", adapter.getItem(i).getPlaceID());
+                intent.putExtra("place_latitude", adapter.getItem(i).getLatitude());
+                intent.putExtra("place_longitude", adapter.getItem(i).getLongitude());
                 startActivity(intent);
             }
         });
@@ -131,13 +150,21 @@ public class Itinerary extends AppCompatActivity {
         String type = "art_gallery";
         link = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + api_keys.PLACES_WEB_API +
                 "&location=" + location + "&radius=5000&rankby=prominence&type=" + type;
-        System.out.println(link);
+        Log.d("Itinerary", link);
         return link;
     }
 
     private String buildImageUrl(String refference) {
         return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + refference +
                 "&key=" + api_keys.PLACES_WEB_API;
+    }
+
+    // TODO: method shows zero results in app but shows at least 20 in either browser or postman
+    private String buildSearchUrl() {
+        String link1;
+        link1 = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist+London&key=AIzaSyBF8xl2OQx4nsxXiIKostXetiQETgYVRsw";
+        Log.d("Itinerary", link1);
+        return link1;
     }
 
 

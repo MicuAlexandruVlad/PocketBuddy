@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,50 +17,155 @@
             android:scaleType="centerCrop"
             android:id="@+id/crescento_banner"/>
 
-        <RelativeLayout
+        <RatingBar
+            android:stepSize="0.1"
+            android:numStars="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/place_rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="name_place_holder"
+            android:id="@+id/tv_place_name"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/bpblack"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingBottom="14dp"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/location_pin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Address_place_holder"
+                    android:id="@+id/tv_place_address"
+                    android:textSize="17sp"
+                    android:layout_marginStart="20dp"
+                    android:paddingBottom="7dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/lighGray"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/phone_call" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Address_place_holder"
+                    android:id="@+id/tv_place_phone"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/lighGray"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/earth_globe"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Address_place_holder"
+                    android:id="@+id/tv_place_website"
+                    android:paddingBottom="11dp"
+                    android:paddingTop="11dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_place_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tv_place_rating"
-                android:layout_alignParentStart="true"
-                android:textSize="18sp"
-                tools:text="placeholder" />
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/lighGray"
+                android:layout_marginTop="12dp"/>
 
-            <TextView
-                android:id="@+id/tv_place_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:textSize="18sp"
-                tools:text="placeholder" />
+        </LinearLayout>
 
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_place_phone"
-            android:layout_width="wrap_content"
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            tools:text="placeholder" />
-
-        <TextView
-            android:id="@+id/tv_place_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            tools:text="placeholder" />
+            android:paddingBottom="20dp"
+            android:id="@+id/lv_reviews"/>
 
     </LinearLayout>
+
 </ScrollView>
