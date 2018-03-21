@@ -24,6 +24,16 @@
         style="@style/Base.Widget.AppCompat.Button.Colored"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_currency_converter"
+        android:text="Currency converter"
+        android:layout_alignTop="@id/btn_itinerary_generator"
+        android:layout_alignParentEnd="true"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        tools:ignore="HardcodedText" />
+
     <ImageView
         android:layout_width="28dp"
         android:layout_height="28dp"

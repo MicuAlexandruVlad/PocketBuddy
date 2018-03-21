@@ -1,22 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.micua.pocketbuddy.Itinerary"
-    android:background="@drawable/itinerary_line">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_places"/>
+        android:orientation="vertical"
+        tools:context="com.example.micua.pocketbuddy.Itinerary"
+        >
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_save_itinerary"
-        style="@style/Base.Widget.AppCompat.Button.Colored"/>
+        <RelativeLayout
+            android:id="@+id/loading_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="@color/bpWhite">
 
-</LinearLayout>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 1"
+            android:id="@+id/tv_day_1"
+            android:padding="16dp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 2"
+            android:padding="16dp"
+            android:id="@+id/tv_day_2"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 3"
+            android:visibility="gone"
+            android:id="@+id/tv_day_3"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 4"
+            android:visibility="gone"
+            android:id="@+id/tv_day_4"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_4"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 5"
+            android:id="@+id/tv_day_5"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 6"
+            android:id="@+id/tv_day_6"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_6"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 7"
+            android:id="@+id/tv_day_7"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_7"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 8"
+            android:id="@+id/tv_day_8"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 9"
+            android:id="@+id/tv_day_9"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_9"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 10"
+            android:id="@+id/tv_day_10"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_10"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 11"
+            android:id="@+id/tv_day_11"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_11"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 12"
+            android:id="@+id/tv_day_12"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_12"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 13"
+            android:id="@+id/tv_day_13"
+            android:visibility="gone"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_13"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 14"
+            android:visibility="gone"
+            android:id="@+id/tv_day_14"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_14"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Day 15"
+            android:visibility="gone"
+            android:id="@+id/tv_day_15"
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_places_day_15"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_randomize_itinerary"
+            android:text="Randomize"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</ScrollView>

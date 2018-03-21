@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private CountryCodes countryCodes;
     private CheckBox autoDetect;
     private ArrayAdapter<String> adapter;
-    private Button trigger, generateItinerary;
+    private Button trigger, generateItinerary, currencyConverter;
     private TextToSpeech tts;
 
     @Override
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         trigger = findViewById(R.id.trigger_lang);
         ttsFrom = findViewById(R.id.iv_tts_lang_from);
         generateItinerary = findViewById(R.id.btn_itinerary_generator);
+        currencyConverter = findViewById(R.id.btn_currency_converter);
 
         adapter = new ArrayAdapter<>(this, R.layout.spinner_lang_item, R.id.tv_lang_spinner,
                 languages);
@@ -96,6 +97,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ItineraryPlanner.class));
+            }
+        });
+
+        currencyConverter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CurrencyConverterList.class);
+                startActivity(intent);
             }
         });
 

@@ -26,6 +26,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.2.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     compile 'com.squareup.assertj:assertj-android-cardview-v7:1.2.0'
