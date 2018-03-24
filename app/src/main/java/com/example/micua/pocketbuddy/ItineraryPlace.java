@@ -8,9 +8,11 @@ public class ItineraryPlace {
     private String placeID;
     private String latitude;
     private String longitude;
+    private String openNow;
+    private boolean isOpenNow;
 
-    public ItineraryPlace(String description, String title, String rating, String pricing, String imgUrl, String placeID, String latitude, String longitude) {
-        this.description = description;
+    public ItineraryPlace(boolean openNow, String title, String rating, String pricing, String imgUrl, String placeID, String latitude, String longitude) {
+        this.isOpenNow = openNow;
         this.title = title;
         this.rating = rating;
         this.pricing = pricing;
@@ -18,6 +20,18 @@ public class ItineraryPlace {
         this.placeID = placeID;
         this.latitude = latitude;
         this.longitude = longitude;
+        setOpenNow(isOpenNow);
+    }
+
+    public String getOpenNow() {
+        return openNow;
+    }
+
+    private void setOpenNow(boolean openNow) {
+        if (openNow)
+            this.openNow = "Open now";
+        else
+            this.openNow = "Not Open";
     }
 
     public String getLatitude() {

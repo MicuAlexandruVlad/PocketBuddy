@@ -154,6 +154,293 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/lighGray"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/clock"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Open_Now_place_holder"
+                    android:id="@+id/tv_place_open_now"
+                    android:paddingBottom="11dp"
+                    android:paddingTop="11dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/lighGray"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:animateLayoutChanges="true"
+                android:layout_marginTop="6dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/calendar"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_marginEnd="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule"
+                    android:id="@+id/tv_place_schedule"
+                    android:paddingBottom="11dp"
+                    android:paddingTop="11dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:id="@+id/iv_drop"
+                    android:src="@drawable/dropdown"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ll_schedule_holder"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Su"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_su"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mo"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_mo"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tu"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_tu"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="We"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_we"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Th"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_th"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fr"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_fr"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sa"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:textSize="17sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Open_Now_place_holder"
+                        android:id="@+id/tv_place_schedule_sa"
+                        android:paddingBottom="11dp"
+                        android:paddingTop="11dp"
+                        android:layout_marginStart="20dp"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"

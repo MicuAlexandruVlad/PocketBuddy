@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -36,16 +40,20 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ItineraryPlaceDetails extends AppCompatActivity {
-    private TextView placeName, placePhone, placeAddress, websiteTV;
+    private TextView placeName, placePhone, placeAddress, websiteTV, openNow, schedule;
     private RatingBar ratingBar;
+    private LinearLayout scheduleHolder;
     private Intent intent;
+    private ImageView drop;
     private API_KEYS api_keys;
-    private String placeID, address, phoneNumber, internationalPhoneNumber, rating, name, websiteUrl;
+    private String placeID, address, phoneNumber, internationalPhoneNumber, rating, name, websiteUrl,
+            su, mo, tu, we, th, fr, sa;
     private CrescentoImageView banner;
     private double latitude, longitude;
     private ExpandableHeightListView reviewsList;
     private List<Review> reviews;
     private ReviewAdapter reviewAdapter;
+    private int holderClickCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,12 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
         placeAddress = findViewById(R.id.tv_place_address);
         websiteTV = findViewById(R.id.tv_place_website);
         reviewsList = findViewById(R.id.lv_reviews);
+        openNow = findViewById(R.id.tv_place_open_now);
+        scheduleHolder = findViewById(R.id.ll_schedule_holder);
+        schedule = findViewById(R.id.tv_place_schedule);
+        drop = findViewById(R.id.iv_drop);
+
+        openNow.setText(intent.getStringExtra("place_open_now"));
 
         reviewsList.setAdapter(reviewAdapter);
         reviewsList.setExpanded(true);
@@ -101,6 +115,7 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
                         name = result.getString("name");
                         rating = result.getString("rating");
                         websiteUrl = result.getString("website");
+                        JSONArray schedule = result.getJSONObject("opening_hours").getJSONArray("weekday_text");
                         JSONArray reviewsJSON = result.getJSONArray("reviews");
                         for (int i = 0; i < reviewsJSON.length(); i++) {
                             final String authorName, authorRating, authorReview, profilePhotoUrl, authorUrl, time;
@@ -118,6 +133,26 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
                                 }
                             });
                         }
+
+                        su = schedule.getString(0).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        mo = schedule.getString(1).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        tu = schedule.getString(2).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        we = schedule.getString(3).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        th = schedule.getString(4).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        fr = schedule.getString(5).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        sa = schedule.getString(6).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
+                                ":" + schedule.getString(0).split(":")[3];
+                        Log.d("Itinerary", th);
+                        Log.d("Itinerary", sa);
+                        Log.d("Itinerary", we);
+                        Log.d("Itinerary", mo);
+                        setSchedule();
                         final String reference = photos.getJSONObject(randomIndex(photos.length() - 1))
                                 .getString("photo_reference");
                         runOnUiThread(new Runnable() {
@@ -129,7 +164,6 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
                                 placePhone.setText(internationalPhoneNumber);
                                 placeAddress.setText(address);
                                 websiteTV.setText(websiteUrl);
-                                //setListViewHeightBasedOnChildren(reviewsList);
                             }
                         });
                     } catch (JSONException e) {
@@ -167,6 +201,22 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
                 //TODO: initiate phone call
             }
         });
+
+        schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holderClickCount++;
+                if (holderClickCount % 2 == 1) {
+                    scheduleHolder.setVisibility(View.VISIBLE);
+                    setLinearLayoutAnim(R.anim.linear_layout_grow);
+                    drop.setImageDrawable(getDrawable(R.drawable.dropup));
+                }
+                else {
+                    drop.setImageDrawable(getDrawable(R.drawable.dropdown));
+                    scheduleHolder.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private String buildPlaceDetailsUrl(String placeId) {
@@ -181,7 +231,7 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
         return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=" + reference +
                 "&key=" + api_keys.PLACES_WEB_API;
     }
-    //TODO: causes error when high is 0
+
     private int randomIndex(int High) {
         Random r = new Random();
         int Low = 0;
@@ -190,24 +240,28 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
         return r.nextInt(High-Low) + Low;
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
+    private void setSchedule() {
+        TextView su = findViewById(R.id.tv_place_schedule_su);
+        TextView mo = findViewById(R.id.tv_place_schedule_mo);
+        TextView tu = findViewById(R.id.tv_place_schedule_tu);
+        TextView we = findViewById(R.id.tv_place_schedule_we);
+        TextView th = findViewById(R.id.tv_place_schedule_th);
+        TextView fr = findViewById(R.id.tv_place_schedule_fr);
+        TextView sa = findViewById(R.id.tv_place_schedule_sa);
 
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+        su.setText(this.su);
+        mo.setText(this.mo);
+        tu.setText(this.tu);
+        we.setText(this.we);
+        th.setText(this.th);
+        fr.setText(this.fr);
+        sa.setText(this.sa);
+    }
 
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
+    private void setLinearLayoutAnim(final int id) {
+        Animation animation = AnimationUtils.loadAnimation(ItineraryPlaceDetails.this, id);
+        animation.setDuration(330);
+        scheduleHolder.setAnimation(animation);
+        animation.start();
     }
 }

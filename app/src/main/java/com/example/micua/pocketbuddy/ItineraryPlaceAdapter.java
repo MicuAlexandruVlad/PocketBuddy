@@ -50,7 +50,7 @@ public class ItineraryPlaceAdapter extends ArrayAdapter<ItineraryPlace> {
             if (rating != null)
                 rating.setText(place.getRating());
             if (description != null)
-                description.setText(place.getDescription());
+                description.setText(place.getOpenNow());
             if (banner != null)
                 Picasso.get().load(place.getImgUrl()).into(banner);
         }
