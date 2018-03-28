@@ -1,6 +1,7 @@
 package com.example.micua.pocketbuddy;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,13 +21,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -87,82 +97,8 @@ public class Itinerary extends AppCompatActivity {
 
         //TODO: make itinerary for separate days
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist+attractions+in+Paris&key=AIzaSyAIxhOps5bZL5qE6J5abGn3JLPyaHoSS_M&pagetoken=CpQCBQEAAGzsSHWxTowwEcImYZ2la0oFspH6YMxPoSblC7-SWU2C_4wJLo20mmuIN58FpJmq-d8lvn-_bs1gPkSX_XmbMXN6QFco0phcTAX5vJlYLi-A0xPAoHYOuLE8fB_poYJUxzv9eUkFBHM1qf_o5PoHtB5IA5auvWXVzSiZYvLF869nmngQoVFFH88SjWnTqKn1o2cPK_tiHShlEbox10gwMw-MenoKB_INJKFNnZwzVXf0VZw2AICAIiiz7-vdhSk2kP0-uLRYcLeObbj9nB3UeEIKdni12-FYJdO71zc-U4Ul_SJgfYSCcnT4XN8-RhUYtFYND9F0fnOx3ij-MNnX2sQvrP65-dNVEen7yRcv-cIXEhAVRgtVc15CEnOnI087KZ3QGhT8dDzYowACMTKzrkMvn8_5_u5cKg", new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("Itinerary", response.toString());
-                try {
-                    if (response.isNull("next_page_token"))
-                        nextPage = "";
-                    else
-                        nextPage = response.getString("next_page_token");
-                    JSONArray results = response.getJSONArray("results");
-                    Log.d("Itinerary", "places " + results.length());
-                    for (int i = 0; i < results.length(); i++) {
-                        String reference;
-                        JSONObject innerObj = results.getJSONObject(i);
-                        if (innerObj.isNull("photos"))
-                            continue;
-                        else
-                            reference = buildImageUrl(innerObj.getJSONArray("photos")
-                                    .getJSONObject(0).getString("photo_reference"));
-                        String rating;
-                        if (innerObj.isNull("rating"))
-                            continue;
-                        else
-                            rating = innerObj.getString("rating") + "";
-                        boolean openNow = false;
-                        if (isTextSearch) {
-                            if (innerObj.isNull("opening_hours"))
-                                continue;
-                            else
-                                openNow = innerObj.getJSONObject("opening_hours").getBoolean("open_now");
-                        }
-                        String title;
-                        if (innerObj.isNull("name"))
-                            continue;
-                        else
-                            title = innerObj.getString("name");
-                        String placeID;
-                        if (innerObj.isNull("place_id"))
-                            continue;
-                        else
-                            placeID = innerObj.getString("place_id");
-                        String placeLat = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lat");
-                        String placeLong = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lng");
-                        Log.d("Itinerary", "placeID: " + placeID);
-                        places.add(new ItineraryPlace(openNow, title, rating, "Expensive", reference, placeID, placeLat, placeLong));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                loadingAnimation.setVisibility(View.GONE);
-                                randomize.setVisibility(View.VISIBLE);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
-
-        /**asyncJSONParser = new AsyncJSONParser(buildSearchUrl(), nextPage);
-        while (true) {
-            Log.d("Itinerary", "Loop");
-            if (asyncJSONParser.isParsingDone()) {
-                Log.d("Itinerary", "Loop ended");
-                break;
-            }
-        }
-        places.addAll(asyncJSONParser.getPlace());
-        adapter.notifyDataSetChanged();
-        nextPage = asyncJSONParser.getNextPageToken();
-        if (asyncJSONParser.getNextPageToken().equalsIgnoreCase("")) {
-            Log.d("Itinerary", "Loop ended");
-        }**/
+        AsyncJSONParser jsonParser = new AsyncJSONParser(buildSearchUrl(), nextPage);
+        jsonParser.execute();
 
         placesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -228,5 +164,99 @@ public class Itinerary extends AppCompatActivity {
         }
         Collections.shuffle(numbers);
         return numbers;
+    }
+
+    //Functional
+    class AsyncJSONParser extends AsyncTask<Void, Void, Void>{
+        String url;
+        String token;
+        String title, imgReference, rating, placeID, placeLat, placeLong;
+        boolean openNow;
+
+        public AsyncJSONParser(String url, String token) {
+            this.token = token;
+            Log.d("Itinerary", "AsyncTask token: " + token);
+            if (!token.equalsIgnoreCase(""))
+                this.url = url + "&pagetoken=" + token;
+            else
+                this.url = url;
+            Log.d("Itinerary", "AsyncTask url: " + this.url);
+        }
+        //TODO: json parsing needs optimization; it skips way too many items in json if a field is missing
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("Itinerary", "AsyncTask start");
+                try {
+                    URL url = new URL(this.url);
+                    Log.d("Itinerary", "AsyncTask url2: " + url);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuilder builder = new StringBuilder();
+
+                    String inputString;
+                    while ((inputString = bufferedReader.readLine()) != null) {
+                        builder.append(inputString);
+                    }
+                    JSONObject response = new JSONObject(builder.toString());
+                    Log.d("Itinerary", "AsyncTask response: " + response.toString());
+                    if (response.isNull("next_page_token"))
+                        token = "";
+                    else
+                        token = response.getString("next_page_token");
+                    JSONArray results = response.getJSONArray("results");
+                    Log.d("Itinerary", "places async " + results.length());
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject innerObj = results.getJSONObject(i);
+                        if (innerObj.isNull("photos"))
+                            continue;
+                        else
+                            imgReference = buildImageUrl(innerObj.getJSONArray("photos")
+                                    .getJSONObject(0).getString("photo_reference"));
+                        if (innerObj.isNull("rating"))
+                            continue;
+                        else
+                            rating = innerObj.getString("rating") + "";
+                        openNow = false;
+                        if (innerObj.isNull("opening_hours"))
+                            continue;
+                        else
+                            openNow = innerObj.getJSONObject("opening_hours").getBoolean("open_now");
+                        if (innerObj.isNull("name"))
+                            continue;
+                        else
+                            title = innerObj.getString("name");
+                        if (innerObj.isNull("place_id"))
+                            continue;
+                        else
+                            placeID = innerObj.getString("place_id");
+                        placeLat = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lat");
+                        placeLong = innerObj.getJSONObject("geometry").getJSONObject("location").getString("lng");
+                        places.add(new ItineraryPlace(openNow, title, rating, "Expensive", imgReference, placeID, placeLat, placeLong));
+                        Log.d("Itinerary", "placeID: " + placeID);
+                    }
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            nextPage = token;
+            Log.d("Itinerary", "Next page token: " + nextPage);
+            loadingAnimation.setVisibility(View.GONE);
+            randomize.setVisibility(View.VISIBLE);
+            adapter.notifyDataSetChanged();
+            Log.d("Itinerary", "AsyncTask stop");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (!nextPage.equalsIgnoreCase(""))
+                new AsyncJSONParser(buildSearchUrl(), token).execute();
+        }
     }
 }

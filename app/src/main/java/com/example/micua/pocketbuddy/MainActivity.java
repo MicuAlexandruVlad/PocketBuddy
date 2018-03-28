@@ -2,9 +2,7 @@ package com.example.micua.pocketbuddy;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.graphics.drawable.GradientDrawable;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -23,14 +21,12 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Locale;
 
-import butterknife.BindView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -103,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         currencyConverter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CurrencyConverterList.class);
+                Intent intent = new Intent(MainActivity.this, CurrencyConverter.class);
                 startActivity(intent);
             }
         });

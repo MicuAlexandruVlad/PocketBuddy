@@ -133,7 +133,7 @@ public class ItineraryPlaceDetails extends AppCompatActivity {
                                 }
                             });
                         }
-
+                        //TODO: error when schedule for a day says closed instead of ex: wednesday: 10:00am - 18:00pm
                         su = schedule.getString(0).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
                                 ":" + schedule.getString(0).split(":")[3];
                         mo = schedule.getString(1).split(":")[1] + ":" + schedule.getString(0).split(":")[2] +
