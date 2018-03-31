@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EmergencyNumbers">
+
+    <RelativeLayout
+        android:id="@+id/rl_loading_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@color/bpWhite">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_police"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/police_badge"
+            android:id="@+id/iv_emergency"/>
+
+        <TextView
+            android:id="@+id/tv_emergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            tools:text="place_holder" />
+
+        <ImageView
+            android:id="@+id/iv_e"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/iv_emergency"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/phone_call"
+            android:scaleX=".8"
+            android:scaleY=".8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_hospital"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/first_aid"
+            android:id="@+id/iv_emergency1"/>
+
+        <TextView
+            android:id="@+id/tv_emergency1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            tools:text="place_holder" />
+
+        <ImageView
+            android:id="@+id/iv_e1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/iv_emergency1"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/phone_call"
+            android:scaleX=".8"
+            android:scaleY=".8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_fire"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fire"
+            android:id="@+id/iv_emergency2"/>
+
+        <TextView
+            android:id="@+id/tv_emergency2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            tools:text="place_holder" />
+
+        <ImageView
+            android:id="@+id/iv_e2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/iv_emergency2"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/phone_call"
+            android:scaleX=".8"
+            android:scaleY=".8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_general_emergency"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sos"
+            android:id="@+id/iv_emergency3"/>
+
+        <TextView
+            android:id="@+id/tv_emergency3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            tools:text="place_holder" />
+
+        <ImageView
+            android:id="@+id/iv_e3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/iv_emergency3"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/phone_call"
+            android:scaleX=".8"
+            android:scaleY=".8"/>
+
+    </RelativeLayout>
+</LinearLayout>

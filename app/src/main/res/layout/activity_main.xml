@@ -34,6 +34,26 @@
         style="@style/Base.Widget.AppCompat.Button.Colored"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/btn_emergency_numbers"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_itinerary_generator"
+        android:text="Emergency Numbers"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_nearby_events"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btn_itinerary_generator"
+        android:text="Nearby Events"
+        tools:ignore="HardcodedText" />
+
     <ImageView
         android:layout_width="28dp"
         android:layout_height="28dp"

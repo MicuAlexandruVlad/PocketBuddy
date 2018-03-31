@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private CountryCodes countryCodes;
     private CheckBox autoDetect;
     private ArrayAdapter<String> adapter;
-    private Button trigger, generateItinerary, currencyConverter;
+    private Button trigger, generateItinerary, currencyConverter, emergency, nearbyEvents;
     private TextToSpeech tts;
 
     @Override
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         ttsFrom = findViewById(R.id.iv_tts_lang_from);
         generateItinerary = findViewById(R.id.btn_itinerary_generator);
         currencyConverter = findViewById(R.id.btn_currency_converter);
+        emergency = findViewById(R.id.btn_emergency_numbers);
+        nearbyEvents = findViewById(R.id.btn_nearby_events);
 
         adapter = new ArrayAdapter<>(this, R.layout.spinner_lang_item, R.id.tv_lang_spinner,
                 languages);
@@ -121,6 +123,22 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(dialog.getSelectedLanguage());
                     }
                 });
+            }
+        });
+
+        emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EmergencyNumbers.class);
+                startActivity(intent);
+            }
+        });
+
+        nearbyEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NearbyEventsListActivity.class);
+                startActivity(intent);
             }
         });
 

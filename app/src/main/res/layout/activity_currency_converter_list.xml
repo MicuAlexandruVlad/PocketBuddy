@@ -7,19 +7,20 @@
     android:orientation="vertical"
     tools:context="com.example.micua.pocketbuddy.CurrencyConverter">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="255dp"
-        android:background="@drawable/currency_bg"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:id="@+id/holder1"
-        android:paddingTop="24dp">
+        android:layout_weight="1"
+        android:background="@drawable/currency_background">
 
         <LinearLayout
+            android:id="@+id/ll11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="32dp"
             android:padding="16dp">
 
             <Spinner
@@ -32,28 +33,28 @@
                 android:id="@+id/tv_amount_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="1.2"
                 android:gravity="end"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 tools:text="place_holder" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-
-        </LinearLayout>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_exchange"
+            android:src="@drawable/exchange" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_marginBottom="32dp">
 
             <Spinner
                 android:id="@+id/spinner_currency_to"
@@ -61,185 +62,205 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-
             <TextView
                 android:id="@+id/tv_amount_to"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="1.2"
                 android:gravity="end"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 tools:text="place_holder" />
-
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:id="@+id/holder2">
+        android:layout_weight="1"
+        android:background="@color/bpWhite">
 
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/bpWhite">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1"
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2"
-                android:padding="16dp"
-                android:textSize="22sp"
-                android:gravity="center_horizontal"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="3"
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/bpWhite">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="4"
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="5"
-                android:padding="16dp"
-                android:textSize="22sp"
-                android:gravity="center_horizontal"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="6"
-                android:padding="22dp"
-                android:gravity="center_horizontal"
-                android:textSize="18sp"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/bpWhite">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="7"
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="8"
-                android:padding="16dp"
-                android:textSize="22sp"
-                android:gravity="center_horizontal"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="9"
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/bpWhite">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="."
-                android:padding="16dp"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="0"
-                android:padding="16dp"
-                android:textSize="22sp"
-                android:gravity="center_horizontal"
-                tools:ignore="HardcodedText" />
+            android:columnCount="1"
+            android:rowCount="4">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_column="0"
+                android:layout_row="0">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/delete_tool"
-                    android:scaleType="centerCrop"
-                    android:scaleY=".7"
-                    android:scaleX=".7"
-                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_1"
+                    android:textSize="22sp"
+                    android:text="1"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_2"
+                    android:textSize="22sp"
+                    android:text="2"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_3"
+                    android:textSize="22sp"
+                    android:text="3"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_column="0"
+                android:layout_row="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_4"
+                    android:textSize="22sp"
+                    android:text="4"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_5"
+                    android:textSize="22sp"
+                    android:text="5"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_6"
+                    android:textSize="22sp"
+                    android:text="6"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_column="0"
+                android:layout_row="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_7"
+                    android:textSize="22sp"
+                    android:text="7"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_8"
+                    android:textSize="22sp"
+                    android:text="8"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_9"
+                    android:textSize="22sp"
+                    android:text="9"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_column="0"
+                android:layout_row="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_comma"
+                    android:textSize="22sp"
+                    android:text="."
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:id="@+id/tv_number_0"
+                    android:textSize="22sp"
+                    android:text="0"
+                    android:gravity="center_horizontal"
+                    tools:ignore="HardcodedText" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/delete_tool" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </GridLayout>
 
     </LinearLayout>
 
